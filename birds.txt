@@ -1,0 +1,50 @@
+American Robin
+Bald Eagle
+Barn Owl
+Blue Jay
+Canada Goose
+Cardinal
+Cedar Waxwing
+Chickadee
+Common Grackle
+Common Loon
+Crow
+Downy Woodpecker
+Eastern Bluebird
+European Starling
+Goldfinch
+Great Blue Heron
+Great Horned Owl
+Green Heron
+Hairy Woodpecker
+House Finch
+House Sparrow
+Indigo Bunting
+Killdeer
+Mallard
+Mourning Dove
+Northern Cardinal
+Northern Flicker
+Northern Mockingbird
+Osprey
+Peregrine Falcon
+Pileated Woodpecker
+Pine Siskin
+Purple Finch
+Red-bellied Woodpecker
+Red-shouldered Hawk
+Red-tailed Hawk
+Rock Pigeon
+Rose-breasted Grosbeak
+Ruby-throated Hummingbird
+Sandhill Crane
+Snowy Owl
+Song Sparrow
+Tree Swallow
+Tufted Titmouse
+Turkey Vulture
+Western Tanager
+White-breasted Nuthatch
+Wild Turkey
+Wood Duck
+Yellow-rumped Warbler

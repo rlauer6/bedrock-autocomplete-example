@@ -1,0 +1,66 @@
+body {
+  font-family: sans-serif;
+  padding: 2em;
+  max-width: 600px;
+  margin: auto;
+}
+
+h1 {
+  font-size: 1.8em;
+  margin-bottom: 0;
+  color: #333;
+}
+
+label, input {
+  display: block;
+  margin-bottom: 1em;
+  width: 100%;
+}
+
+#bird-images {
+  margin-top: 1em;
+}
+
+.bird-card {
+  max-width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 1em;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.bird-card img {
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  display: block;
+  border-radius: 12px 12px 0 0;
+}
+
+.bird-caption {
+  padding: 0.5em;
+  background-color: #f0f0f0;
+  text-align: center;
+  font-size: 0.9em;
+  color: #333;
+}
+
+.bird-footnote-bad {
+  margin-top: 2px;
+  font-style: italic;
+  font-size: 0.875rem;
+  text-align: right;
+  line-height: 1.5;
+  padding: 2px;
+  border: 1px dashed blue; /* for debugging */
+}
+
+.bird-footnote {
+  margin-top: 4px;
+  font-style: italic;
+  font-size: 0.875rem;
+  text-align: right;
+  line-height: 1.5;
+  padding: 2px;
+  font-family: Arial, sans-serif;
+}
