@@ -1,0 +1,21 @@
+Sun Dec 28 07:58:54 2025  Rob Lauer  <rclauer@gmail.com>
+
+	[BigBang]:
+	* ChangeLog: new
+	* VERSIONL new
+	* Makefile: new
+	* README.md: new
+	* autocomplete-example.tar.gz
+	* autocomplete.js:new
+	* birds.css: new
+	* birds.json: new
+	* birds.txt: new
+	* fetch-bird-images.pl: new
+	* index.roc: new
+	* images/*.png: new
+	* images/jpg/*.jpg: new
+	* images/*.jpg: new
+	* favicon.ico: new
+	* not-found.html: new
+	* birds.yml: new
+	* .gitignore: new

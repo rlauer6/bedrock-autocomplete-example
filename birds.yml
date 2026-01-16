@@ -1,0 +1,33 @@
+# Server Settings
+port: 80
+mount_point: /
+
+# 1. The Service to Run
+service_class: Bedrock::Service::Autocomplete
+
+# 2. Static Asset Mapping
+#    Maps URL path "/birds" -> Filesystem path "htdocs"
+#    e.g. /birds/css/birds.css -> ./htdocs/css/birds.css
+directory:
+  /birds: index.roc
+
+error_document:
+  404: /birds/not-found.html
+
+aliases:
+  /birds/javascript/birds.js: birds.js
+  /birds/css/birds.css: birds.css
+  /birds/img: images
+  /birds/javascript/autocomplete.js: autocomplete.js
+  /birds/not-found.html: not-found.html
+  /favicon.ico: favicon.ico
+
+# 3. Service Configuration
+service_config:
+  # 'overrides' merges into the Bedrock configuration object
+  overrides:
+    autocomplete:
+      # Where to find the JSON files (birds.json)
+      root: .
+      search_key: label
+      cache: no

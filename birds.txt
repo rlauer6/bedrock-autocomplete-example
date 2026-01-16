@@ -2,12 +2,16 @@ American Robin
 Bald Eagle
 Barn Owl
 Blue Jay
+Brown Creeper
 Canada Goose
+Canary
 Cardinal
 Cedar Waxwing
 Chickadee
 Common Grackle
 Common Loon
+Cooper Hawk
+Cormorant
 Crow
 Downy Woodpecker
 Eastern Bluebird
@@ -20,6 +24,7 @@ Hairy Woodpecker
 House Finch
 House Sparrow
 Indigo Bunting
+Kestrel
 Killdeer
 Mallard
 Mourning Dove

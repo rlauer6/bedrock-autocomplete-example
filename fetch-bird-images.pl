@@ -263,15 +263,15 @@ sub cmd_download {
 
   my $out_dir = $self->get_out_dir;
   my @bird_map;
-  my $found_birds = 0;
 
   for my $bird (@birds) {
     last if $max_birds && $index > $max_birds;
-    sleep 1;
 
     my $png_file = sprintf '%s/%s.png', $self->get_img_dir, fix_filename($bird);
     if ( !$self->get_force && -e $png_file ) {
       INFO sprintf 'Skipping %s...already downloaded and resized.', $png_file;
+      push @bird_map, $bird;
+      $index++;
       next;
     }
 
@@ -313,7 +313,9 @@ sub cmd_download {
     my $filename = sprintf '%s/%s.%s', $out_dir, fix_filename($bird), $ext;
 
     if ( !$self->fetch_image( $image_url, $filename ) ) {
-      WARN sprintf 'sadly...we failed to download image for %s', $bird;
+      WARN sprintf 'Sadly...we failed to download image for %s', $bird;
+      WARN sprintf '...try again later.';
+      return 1;
     }
     else {
       INFO sprintf 'TWEET! TWEET! TWEET!...downloaded an image for %s', $bird;
@@ -323,15 +325,24 @@ sub cmd_download {
 
       if ( -s $png ) {
         INFO sprintf 'TWEET! TWEET! TWEET! TWEET!...resized %s (%d)  successfully!', $png, -s $png;
-        push @bird_map, { value => ++$found_birds, label => $bird };
+        push @bird_map, $bird;
       }
       else {
         ERROR sprintf 'ERROR: resizing...%s', $filename;
       }
     }
+
+    sleep $self->get_sleep_time;
   }
 
   my $autocomplete_file = $self->get_autocomplete_file;
+
+  DEBUG Dumper(
+    [ bird_map          => \@bird_map,
+      autocomplete_file => $autocomplete_file,
+      overwrite         => $self->get_overwrite,
+    ]
+  );
 
   if (@bird_map) {
     if ( -e $autocomplete_file && $self->get_overwrite ) {
@@ -342,16 +353,16 @@ sub cmd_download {
       close $fh;
 
       my @birds = map { $_->{label} } @{$old_bird_map};
-      @birds = uniq( @birds, map { $_->{label} } @bird_map );
-      my $idx = 0;
-      @bird_map = map { { value => ++$idx, label => $_ } } @birds;
+      @bird_map = uniq( @birds, @bird_map );
     }
 
     if ( !-e $autocomplete_file || $self->get_overwrite ) {
       open my $fh, '>', $autocomplete_file
         or croak sprintf "ERROR: could not open %s for writing\n%s", $autocomplete_file, $OS_ERROR;
 
-      print {$fh} JSON->new->pretty->encode( \@bird_map );
+      my $idx = 1;
+
+      print {$fh} JSON->new->pretty->encode( [ map { { value => $idx++, label => $_ } } uniq @bird_map ] );
 
       close $fh;
     }
@@ -367,17 +378,18 @@ sub cmd_download {
 sub main {
 ########################################################################
   my @option_specs = qw(
-    help
-    force|f
-    log-level|l=s
-    out-dir|o=s
-    img-dir|i=s
-    max-birds|m=i
-    manifest|M=s
-    width|w=i
+    help|h
     autocomplete-file|a=s
     bird|b=s
+    force|f
+    img-dir|i=s
+    log-level|l=s
+    manifest|M=s
+    max-birds|m=i
+    out-dir|o=s
     overwrite
+    sleep-time=i
+    width|w=i
   );
 
   my %commands = ( default => \&cmd_download );
@@ -393,6 +405,7 @@ sub main {
       out_dir           => 'images/jpg',
       img_dir           => 'images',
       autocomplete_file => 'birds.json',
+      sleep_time        => 2,
     },
   );
 

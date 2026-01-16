@@ -27,7 +27,7 @@ JAVASCRIPT = \
 IMAGES_DIR=$(HTML_DIR)/img
 # img/birds/*.png
 
-autocomplete-example.tar.gz: $(MANIFEST) $(HTML) $(CSS) $(JSON) $(JAVASCRIPT)
+autocomplete-example.zip: $(MANIFEST) $(AUTOCOMPLETE) $(HTML) $(CSS) $(JSON) $(JAVASCRIPT)
 	install_dir=$$(mktemp -d); \
 	mkdir -p $$install_dir/$(SITE_DIR)/{$(HTML_DIR),$(CSS_DIR),$(AUTOCOMPLETE_DIR),$(JAVASCRIPT_DIR),$(IMAGES_DIR)}; \
 	for f in $(AUTOCOMPLETE); do \
@@ -46,23 +46,46 @@ autocomplete-example.tar.gz: $(MANIFEST) $(HTML) $(CSS) $(JSON) $(JAVASCRIPT)
 	  cp $$f $$install_dir$(SITE_DIR)/$(JAVASCRIPT_DIR)/$$f; \
 	done; \
 	pushd $$install_dir; \
-	tar cvzf $(CURDIR)/$@ *; \
+	zip -r $(CURDIR)/$@ *; \
 	popd; \
 	rm -rf $$install_dir
 
 MANIFEST = \
     birds.txt
 
-birds.json: $(MANIFEST)
-	if [[ "$$MAX_BIRDS" ]]; then \
+.PHONEY: bird
+bird:
+	if [[ -n "$$BIRD" ]]; then \
+	  BIRD_OPTION="--bird $$BIRD"; \
+	else \
+	  echo "SET BIRD first"; \
+	  false; \
+	fi; \
+	if [[ -n "$$DEBUG" ]]; then \
+	  DEBUG="--log-level debug"; \
+	if; \
+	if [[ -n "$$SLEEP" ]]; then \
+	  SLEEP="--sleep-time $$SLEEP"; \
+	fi; \
+	perl fetch-bird-images.pl $$SLEEP $$DEBUG -a $(AUTOCOMPLETE) $$BIRD_OPTION --overwrite
+
+$(AUTOCOMPLETE): $(MANIFEST)
+	if [[ -n "$$MAX_BIRDS" ]]; then \
 	  MAX_BIRDS_OPTION="-m $$MAX_BIRDS"; \
 	fi; \
-	perl fetch-bird-images.pl -a $@ $$MAX_BIRDS_OPTION --manifest $<
+	if [[ -n "$$BIRD" ]]; then \
+	  BIRD_OPTION="--bird $$BIRD"; \
+	fi; \
+	if [[ -n "$$SLEEP" ]]; then \
+	  SLEEP="--sleep-time $$SLEEP"; \
+	fi; \
+	perl fetch-bird-images.pl $$SLEEP -a $@ $$MAX_BIRDS_OPTION $$BIRD_OPTION --overwrite --manifest $<
 
 clean:
 	rm -f autocomplete-example.tar.gz
 
 realclean:
+	rm -f autocomplete-example.zip
 	rm -f images/*.png
 	rm -f images/jpg/*.jpg
 	rm -f $(AUTOCOMPLETE)
