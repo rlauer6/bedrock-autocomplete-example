@@ -1,8 +1,23 @@
+Fri Feb  6 10:52:31 2026  Rob Lauer  <rclauer@gmail.com>
+
+	[1.0.1]:
+        * Makefile: add version.mk
+        * README.md: :updates
+        * VERSION: bump
+        * autocomplete.js: add accept header
+        * birds.yml:
+	- add directory_index
+	- parse_templates for .roc
+	- services: not service_class:
+	- add overrides:
+        * index.roc
+	- whitespace
+
 Sun Dec 28 07:58:54 2025  Rob Lauer  <rclauer@gmail.com>
 
 	[BigBang]:
 	* ChangeLog: new
-	* VERSIONL new
+	* VERSION: new
 	* Makefile: new
 	* README.md: new
 	* autocomplete-example.tar.gz

@@ -1,14 +1,17 @@
 # Server Settings
 port: 80
 mount_point: /
+parse_templates: true
+log_level: debug
 
 # 1. The Service to Run
-service_class: Bedrock::Service::Autocomplete
+services:
+  /birds: Bedrock::Service::Autocomplete
 
 # 2. Static Asset Mapping
 #    Maps URL path "/birds" -> Filesystem path "htdocs"
 #    e.g. /birds/css/birds.css -> ./htdocs/css/birds.css
-directory:
+directory_index:
   /birds: index.roc
 
 error_document:
@@ -22,12 +25,28 @@ aliases:
   /birds/not-found.html: not-found.html
   /favicon.ico: favicon.ico
 
-# 3. Service Configuration
-service_config:
-  # 'overrides' merges into the Bedrock configuration object
-  overrides:
-    autocomplete:
-      # Where to find the JSON files (birds.json)
-      root: .
-      search_key: label
-      cache: no
+session:
+    binding: session
+    session: yes
+    module: BLM::Startup::MemorySession
+    config:
+      cookie:
+        expiry_secs: 86400
+      persistence_enabled: no
+      param: session
+
+routes:
+  /birds:
+    '/birds/:file': /autocomplete/:file
+ 
+  /echo:
+    '/echo/hello': /
+
+overrides:
+  BEDROCK_ERROR_LOCATION: @dist_dir@/htdocs/error.roc
+
+  autocomplete:
+    # Where to find the JSON files (birds.json)
+    root: .
+    search_key: label
+    cache: no

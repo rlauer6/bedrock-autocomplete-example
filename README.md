@@ -85,7 +85,7 @@ different key as the target of your search set the the value
 ]
 ```
 
-See `perldoc Apache::BedrockAutocomplete` for more information.
+See `perldoc Bedrock::Service::Autocomplete` for more information.
 
 ## Web Form
 
@@ -137,7 +137,7 @@ $(function () {
 
 You can set various options in a configuration file that will control
 the Autocomple handler's behavior.  See `perldoc
-Apache::BedrockAutocomplete` for details.
+Bedrock::Service::Autocomplete` for details.
 
 ```
 <object>
@@ -162,25 +162,26 @@ images. For each bird we find from our master list of birds
 represents our Autocomplete file. Use the `Makefile` provided to
 create or update the list.
 
-
 ```
 make SLEEP=45
 ```
 
-If you bang https://commons.wikipedia.org too hard you'll get blocked,
-so use a sleep value to throttle requests.
+Why `SLEEP=45`? If you bang https://commons.wikipedia.org too hard
+you'll get blocked, so use a sleep value to throttle requests. Even 45
+might be too quick. YMMV.
 
 Files are downloaded to the `images/jpg` directory and then resized as
 `.png` files to use in our example application.
 
-The `Makefile` will download the images, resize them and then create `.zip` file you can deploy to the Bedrock
-Docker image found on
+The `Makefile` will download the images, resize them and then create
+`.zip` file you can deploy to the Bedrock Docker image found on
 [Dockerhub](https://hub.docker.com/r/rlauer/openbedrock).
 
 # Installing the Example Application
 
 Bring up Bedrock from the Docker image. Use the `docker-compose` and
-Dockerfiles found here: [`docker-compose.yml'](https://github.com/rlauer6/openbedrock/blob/master/docker)
+Dockerfiles found here:
+[`docker-compose.yml'](https://github.com/rlauer6/openbedrock/blob/master/docker)
 
 `OS=al2023 DOCKERIMAGE=bedrock-$OS DOCKERFILE=Dockerfile.bedrock-$OS docker compose up`
 

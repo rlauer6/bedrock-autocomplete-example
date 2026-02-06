@@ -89,3 +89,5 @@ realclean:
 	rm -f images/*.png
 	rm -f images/jpg/*.jpg
 	rm -f $(AUTOCOMPLETE)
+
+include version.mk

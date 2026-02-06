@@ -6,8 +6,11 @@ $(function () {
   $("#search").autocomplete({
     source: function (request, response) {
       $.ajax({
-        url: "/autocomplete/birds.json", // adjust this path to your backend
+        url: "/birds/birds.json", // adjust this path to your backend
         data: { term: request.term },
+        headers: {
+          "Accept": "application/json"
+        },
         success: function (data) {
           response(data); // expect array of { label, image_url }
         }
